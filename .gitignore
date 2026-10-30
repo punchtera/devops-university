@@ -1,0 +1,8 @@
+.study-session
+.DS_Store
+.terraform/
+*.tfstate
+*.tfstate.*
+cdk.out/
+node_modules/
+.env
