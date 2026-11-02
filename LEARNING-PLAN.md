@@ -16,9 +16,11 @@ The plan runs 24 weeks at 45 minutes a day, 5 days a week (about 90 hours), and 
 
 ### Cost safety before anything else (Day 1–2)
 
+> **My account setup (Nov 2, 2026):** signed up with `js.ramirezc18@gmail.com` through AWS's **new sign-up experience** (Sept 2026). That means: resources live in a **project** ("Blank Slate"), the account is owned by my **AWS Builder ID**, and there is **no root user**. MFA is managed at profile.aws.amazon.com → Security, not in IAM. Free plan: $100 credits, 182 days from sign-up. Days below are adjusted for this.
+
 - New AWS accounts on the Free plan get $100 in credits at sign-up and up to $100 more for onboarding tasks; the Free plan account closes after 6 months or when credits run out, unless you upgrade to a paid plan (AWS Builder Center). Six months matches this plan; upgrade before week 24 if you want to keep the account.
-- Turn on MFA for the root user, create an admin user in IAM Identity Center, and never use root again.
-- Create an AWS Budget with an email alert at $5.
+- Turn on MFA for your AWS Builder ID (profile.aws.amazon.com → Security): Touch ID + an authenticator app as backup. If you sign in with Google, also turn on Google 2-Step Verification. There is no root user and no IAM Identity Center user to create; you already have admin access to your project.
+- Set a **spend limit** on the project. When it is reached AWS pauses the project instead of charging more. (Budgets in Billing work too, but the spend limit is the hard stop.)
 - Tear down at the end of every lab session. Leftover NAT gateways, load balancers, EKS clusters and EC2 instances are what burn credits. Prefer IaC from week 8 onward so teardown is one command.
 
 > **Learning rule:** for every service you touch, write one line in your journal answering *"why this service and not the alternative?"* That habit is what turns service knowledge into judgment.
@@ -45,8 +47,8 @@ Six phases build on each other: you learn the platform, then automate it, then s
 
 ### Week 1 — Account, security, mental model
 
-- [ ] Day 1 — Create the AWS account (Free plan), enable root MFA, create the GitHub repo and `devops-journal.md`.
-- [ ] Day 2 — Set up IAM Identity Center admin user, an AWS Budget alert at $5, and install the AWS CLI v2; run `aws sts get-caller-identity`.
+- [ ] Day 1 — Create the AWS account (Free plan, new experience), register 2 MFA devices on your Builder ID, create the GitHub repo and `devops-journal.md`.
+- [ ] Day 2 — Set a project spend limit, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
 - [ ] Day 3 — Cloud Practitioner Essentials: cloud concepts, Regions, Availability Zones, shared responsibility model.
 - [ ] Day 4 — Cloud Practitioner Essentials: compute module (EC2, instance types, Auto Scaling, ELB).
 - [ ] Day 5 — Cloud Quest assignment 1–2. Journal: which Region will you use and why (latency to Medellín vs. service availability vs. price)?
@@ -238,10 +240,12 @@ Keep going with the remaining Cloud Quest assignments on weekends; finishing all
 ### Week 21 — Security
 
 - [ ] Day 101 — Turn on CloudTrail (org trail), AWS Config and GuardDuty. Note their costs.
-- [ ] Day 102 — IAM Access Analyzer: find and remove unused permissions from your deploy and task roles.
+- [ ] Day 102 — IAM Access Analyzer: find and remove unused permissions from your deploy and task roles. *(Needs advanced features — see the decision note below Day 105.)*
 - [ ] Day 103 — Encryption: KMS keys, S3 default encryption, RDS encryption, secrets rotation.
 - [ ] Day 104 — Shift-left: add container image scanning and IaC scanning gates to the pipeline.
-- [ ] Day 105 — Multi-account basics: AWS Organizations, separate dev / prod accounts, SCPs (read; build if credits allow).
+- [ ] Day 105 — Multi-account basics: AWS Organizations, separate dev / prod accounts, SCPs (read; build if credits allow). In the new experience, a second **project** is a separate account, so dev / prod projects are a free way to practice the idea.
+
+> **Decision point — activate advanced features?** The new experience limits Regions and leaves out IAM Access Analyzer, full Organizations / SCP control and IAM Identity Center. settings.aws.com → Projects → *Explore advanced features* unlocks them at no extra cost, but it is **irreversible** and **removes the spend limit** (Budgets become your only guard). Decide here, not earlier; skipping Day 102 / full Organizations is an acceptable trade for keeping the hard spend cap.
 
 ### Week 22 — Reliability and operations
 
@@ -271,7 +275,7 @@ The capstone proves you can manage a complex deployment end to end; the certific
 - [ ] Day 117 — Clean-room test: from an empty account, one pipeline run creates dev and prod.
 - [ ] Day 118 — Release a feature with blue/green; trigger and verify an automatic rollback.
 - [ ] Day 119 — Write the README as a portfolio piece: what it does, how to run it, what you'd improve.
-- [ ] Day 120 — Destroy everything with one command. Decide: upgrade the account to paid, or start fresh.
+- [ ] Day 120 — Destroy everything with one command. Decide: upgrade the free plan to paid (add a payment method, keep a spend limit), or let it close.
 
 ### Certification path
 
