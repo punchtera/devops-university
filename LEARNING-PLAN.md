@@ -47,7 +47,7 @@ Six phases build on each other: you learn the platform, then automate it, then s
 
 ### Week 1 — Account, security, mental model
 
-- [ ] Day 1 — Create the AWS account (Free plan, new experience), register 2 MFA devices on your Builder ID, create the GitHub repo and `devops-journal.md`.
+- [x] Day 1 — Create the AWS account (Free plan, new experience), register 2 MFA devices on your Builder ID, create the GitHub repo and `devops-journal.md`.
 - [ ] Day 2 — Set a project spend limit, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
 - [ ] Day 3 — Cloud Practitioner Essentials: cloud concepts, Regions, Availability Zones, shared responsibility model.
 - [ ] Day 4 — Cloud Practitioner Essentials: compute module (EC2, instance types, Auto Scaling, ELB).
