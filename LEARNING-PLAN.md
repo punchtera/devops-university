@@ -56,7 +56,7 @@ Six phases build on each other: you learn the platform, then automate it, then s
 ### Week 1 — Account, security, mental model
 
 - [x] Day 1 — Create the AWS account (Free plan, new experience), register 2 MFA devices on your Builder ID, create the GitHub repo and `devops-journal.md`.
-- [ ] Day 2 — 💰 Create a $5 AWS Budget alert (credits excluded), check credit usage in settings.aws.com → Billing, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
+- [x] Day 2 — 💰 Create a $5 AWS Budget alert (credits excluded), check credit usage in settings.aws.com → Billing, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
 - [ ] Day 3 — Cloud Practitioner Essentials: cloud concepts, Regions, Availability Zones, shared responsibility model. 💰 Optional: send one prompt in the Amazon Bedrock playground.
 - [ ] Day 4 — Cloud Practitioner Essentials: compute module (EC2, instance types, Auto Scaling, ELB).
 - [ ] Day 5 — Cloud Quest assignment 1–2. Journal: your project runs in `us-east-2` (Ohio). If you could choose, which Region would you pick and why (latency to Medellín vs. service availability vs. price)?
