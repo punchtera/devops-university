@@ -20,6 +20,19 @@ My personal learning repo. I'm a software developer building DevOps expertise on
 
 `stop` marks the day as done in `LEARNING-PLAN.md`, appends the journal entry, and pushes to GitHub, so the commit graph is the consistency tracker.
 
+## AWS CLI setup (one time per computer)
+
+The project lives in **us-east-2 (Ohio)**. The repo's `.envrc` sets `AWS_PROFILE=devops-lab` and `AWS_REGION=us-east-2` whenever you `cd` into it, so you never pass `--region` or `--profile`.
+
+```bash
+brew install awscli direnv
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc && source ~/.zshrc
+aws configure set region us-east-2 --profile devops-lab   # creates the profile
+cd ~/code/personal-projects/devops-university && direnv allow
+aws login                      # uses the devops-lab profile from .envrc
+aws sts get-caller-identity    # should show account 357601815547
+```
+
 ## Progress
 
 Run `./scripts/study.sh stats` for live numbers.
