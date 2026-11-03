@@ -14,14 +14,22 @@ The plan runs 24 weeks at 45 minutes a day, 5 days a week (about 90 hours), and 
 
 **One repo for everything.** Every script, template, pipeline and note goes in this repo, so by week 24 it is a portfolio.
 
+### My account: AWS Free plan (new AWS experience)
+
+This whole plan runs on a **Free plan** account — no credit card charges, ever, unless I choose to upgrade.
+
+- **Account:** signed up Nov 2, 2026 with `js.ramirezc18@gmail.com` through the new AWS sign-up experience. Resources live in a **project** ("Blank Slate", account `357601815547`, Region `us-east-2`), owned by my **AWS Builder ID**. There is **no root user** and no IAM Identity Center; I already have admin access to the project.
+- **Credits:** $100 at sign-up, plus up to **$100 more** for first-time activities (launch EC2, try a Bedrock prompt, create a cost budget, build a Lambda web app, create an RDS database). Days that earn credits are marked 💰.
+- **Duration:** the Free plan ends after **6 months (≈ May 3, 2027) or when credits run out**, whichever comes first. The account then closes, with 90 days to upgrade and recover. Day 120 lands around mid-April 2027 if I keep 5 days a week, so use weekends to catch up on missed days.
+- **Things that would end the Free plan** (upgrade to Paid, irreversible — avoid): joining or creating an **AWS Organization**, setting up Control Tower, activating "advanced features" (which requires a paid upgrade first), or adding a payment method to upgrade.
+- **Not available on the Free plan:** Savings Plans, Reserved Instances, spend limits (Paid only), some Marketplace offers, and some services. If a lab's service isn't available, do the local / read-only version and journal what you'd do.
+
 ### Cost safety before anything else (Day 1–2)
 
-> **My account setup (Nov 2, 2026):** signed up with `js.ramirezc18@gmail.com` through AWS's **new sign-up experience** (Sept 2026). That means: resources live in a **project** ("Blank Slate"), the account is owned by my **AWS Builder ID**, and there is **no root user**. MFA is managed at profile.aws.amazon.com → Security, not in IAM. Free plan: $100 credits, 182 days from sign-up. Days below are adjusted for this.
-
-- New AWS accounts on the Free plan get $100 in credits at sign-up and up to $100 more for onboarding tasks; the Free plan account closes after 6 months or when credits run out, unless you upgrade to a paid plan (AWS Builder Center). Six months matches this plan; upgrade before week 24 if you want to keep the account.
-- Turn on MFA for your AWS Builder ID (profile.aws.amazon.com → Security): Touch ID + an authenticator app as backup. If you sign in with Google, also turn on Google 2-Step Verification. There is no root user and no IAM Identity Center user to create; you already have admin access to your project.
-- Set a **spend limit** on the project. When it is reached AWS pauses the project instead of charging more. (Budgets in Billing work too, but the spend limit is the hard stop.)
-- Tear down at the end of every lab session. Leftover NAT gateways, load balancers, EKS clusters and EC2 instances are what burn credits. Prefer IaC from week 8 onward so teardown is one command.
+- Turn on MFA for your AWS Builder ID (profile.aws.amazon.com → Security): Touch ID + an authenticator app as backup. If you sign in with Google, also turn on Google 2-Step Verification.
+- 💰 Create an **AWS Budget** with an email alert at $5 that **excludes credits** (`IncludeCredit` off), so you see real usage, not $0. It earns bonus credits too.
+- Watch credits in settings.aws.com → **Billing**. Credits are money: a forgotten resource drains them just like a bill.
+- Biggest credit burners in this plan: **NAT gateways** (~$32/month each + data), **public IPv4 addresses** (~$3.60/month each, even idle), **load balancers**, **EKS clusters**, **RDS instances**. Tear down at the end of every lab session; from week 8 onward use IaC so teardown is one command.
 
 > **Learning rule:** for every service you touch, write one line in your journal answering *"why this service and not the alternative?"* That habit is what turns service knowledge into judgment.
 
@@ -48,22 +56,22 @@ Six phases build on each other: you learn the platform, then automate it, then s
 ### Week 1 — Account, security, mental model
 
 - [x] Day 1 — Create the AWS account (Free plan, new experience), register 2 MFA devices on your Builder ID, create the GitHub repo and `devops-journal.md`.
-- [ ] Day 2 — Set a project spend limit, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
-- [ ] Day 3 — Cloud Practitioner Essentials: cloud concepts, Regions, Availability Zones, shared responsibility model.
+- [ ] Day 2 — 💰 Create a $5 AWS Budget alert (credits excluded), check credit usage in settings.aws.com → Billing, explore AWS Settings (settings.aws.com: Projects, Team, Billing), install the AWS CLI v2, sign in with `aws login`, and run `aws sts get-caller-identity`. Journal: what do projects and the Builder ID replace from the classic root-user + IAM setup?
+- [ ] Day 3 — Cloud Practitioner Essentials: cloud concepts, Regions, Availability Zones, shared responsibility model. 💰 Optional: send one prompt in the Amazon Bedrock playground.
 - [ ] Day 4 — Cloud Practitioner Essentials: compute module (EC2, instance types, Auto Scaling, ELB).
-- [ ] Day 5 — Cloud Quest assignment 1–2. Journal: which Region will you use and why (latency to Medellín vs. service availability vs. price)?
+- [ ] Day 5 — Cloud Quest assignment 1–2. Journal: your project runs in `us-east-2` (Ohio). If you could choose, which Region would you pick and why (latency to Medellín vs. service availability vs. price)?
 
 ### Week 2 — Identity and networking
 
 - [ ] Day 6 — IAM deep dive: users vs. roles vs. policies; read one AWS managed policy JSON line by line.
 - [ ] Day 7 — Write your own least-privilege policy that allows read-only on one S3 bucket; test it with the IAM Policy Simulator.
 - [ ] Day 8 — Cloud Practitioner Essentials: networking (VPC, subnets, route tables, internet gateway, security groups vs. NACLs).
-- [ ] Day 9 — Build a VPC by hand in the console: 2 public + 2 private subnets across 2 AZs. Draw it in your journal. Delete the NAT gateway if you made one.
+- [ ] Day 9 — Build a VPC by hand in the console: 2 public + 2 private subnets across 2 AZs. Draw it in your journal. **Don't create a NAT gateway** (~$32/month); if you did, delete it today.
 - [ ] Day 10 — Cloud Quest assignments 3–4.
 
 ### Week 3 — Compute and storage
 
-- [ ] Day 11 — Launch a t-family EC2 instance in a public subnet; connect with Session Manager (no SSH keys, no port 22).
+- [ ] Day 11 — 💰 Launch a free-tier-eligible t-family EC2 instance in a public subnet; connect with Session Manager (no SSH keys, no port 22).
 - [ ] Day 12 — Attach an IAM role to the instance so it can read your S3 bucket with no stored keys. This is the single most important DevOps security pattern.
 - [ ] Day 13 — S3: storage classes, versioning, lifecycle rules, bucket policies; host a static page.
 - [ ] Day 14 — Databases overview: RDS vs. Aurora vs. DynamoDB; when each fits.
@@ -71,9 +79,9 @@ Six phases build on each other: you learn the platform, then automate it, then s
 
 ### Week 4 — Putting it together
 
-- [ ] Day 16 — Application Load Balancer + Auto Scaling group of 2 instances running a simple web server (user data script).
+- [ ] Day 16 — Application Load Balancer (burns credits while running — finish Day 17 the next day, then tear down) + Auto Scaling group of 2 instances running a simple web server (user data script).
 - [ ] Day 17 — Kill one instance and watch Auto Scaling replace it. Journal what happened and how long it took.
-- [ ] Day 18 — Billing: Cost Explorer, tags, the pricing calculator; estimate what Day 16's setup costs per month.
+- [ ] Day 18 — Billing: Cost Explorer, tags, the pricing calculator; estimate what Day 16's setup costs per month, and check how many credits it actually used.
 - [ ] Day 19 — Cloud Quest assignments 7–8; finish Cloud Practitioner Essentials.
 - [ ] Day 20 — Checkpoint: from memory, draw a 2-AZ web app architecture and explain every arrow. Tear down all resources.
 
@@ -202,15 +210,15 @@ Keep going with the remaining Cloud Quest assignments on weekends; finishing all
 ### Week 17 — Production-grade ECS
 
 - [ ] Day 81 — Blue/green deployments for ECS with CodeDeploy (or ECS native blue/green); test automatic rollback.
-- [ ] Day 82 — Add a managed database (RDS or Aurora Serverless) in private subnets; security group references only.
-- [ ] Day 83 — DNS and TLS: Route 53 record + ACM certificate on the ALB (use a cheap domain or skip DNS and use the ALB name).
+- [ ] Day 82 — 💰 Add a managed database (RDS or Aurora Serverless) in private subnets; security group references only.
+- [ ] Day 83 — DNS and TLS: read how Route 53 + ACM work; use the ALB's DNS name instead of buying a domain (domain registration isn't covered by credits).
 - [ ] Day 84 — Cost check: NAT gateway vs. VPC endpoints for ECR/S3. Journal the monthly difference.
 - [ ] Day 85 — Mini-checkpoint: the full app runs in dev and prod, deployed only by the pipeline.
 
 ### Week 18 — Serverless
 
 - [ ] Day 86 — Lambda fundamentals: handlers, cold starts, memory/CPU, concurrency, IAM execution role.
-- [ ] Day 87 — Build an event-driven side service: S3 upload → Lambda → DynamoDB.
+- [ ] Day 87 — 💰 Build an event-driven side service: S3 upload → Lambda → DynamoDB.
 - [ ] Day 88 — Decoupling: SQS queue with a dead-letter queue between two services; EventBridge for events.
 - [ ] Day 89 — Step Functions for a small multi-step workflow with retries.
 - [ ] Day 90 — Journal: containers vs. Lambda for your app — traffic pattern, runtime limits, cost at 1k and 1M requests/day.
@@ -218,7 +226,7 @@ Keep going with the remaining Cloud Quest assignments on weekends; finishing all
 ### Week 19 — Kubernetes on AWS (intro)
 
 - [ ] Day 91 — Kubernetes core objects locally first (kind or minikube): pods, deployments, services.
-- [ ] Day 92 — EKS Workshop: cluster setup and deploying the sample app. Destroy the cluster afterwards.
+- [ ] Day 92 — EKS Workshop: cluster setup and deploying the sample app. EKS bills per hour (control plane + nodes): create and destroy in the same session. If EKS isn't available on the Free plan, do Days 92–93 on kind / minikube.
 - [ ] Day 93 — EKS Workshop: IAM roles for service accounts / Pod Identity, and the load balancer controller.
 - [ ] Day 94 — Helm basics: package your app as a chart.
 - [ ] Day 95 — Journal: ECS vs. EKS — what complexity you'd take on with EKS and when it's worth it.
@@ -239,13 +247,11 @@ Keep going with the remaining Cloud Quest assignments on weekends; finishing all
 
 ### Week 21 — Security
 
-- [ ] Day 101 — Turn on CloudTrail (org trail), AWS Config and GuardDuty. Note their costs.
-- [ ] Day 102 — IAM Access Analyzer: find and remove unused permissions from your deploy and task roles. *(Needs advanced features — see the decision note below Day 105.)*
+- [ ] Day 101 — Turn on a CloudTrail trail (not an org trail — that needs Organizations), AWS Config and GuardDuty. Note what each costs in credits; turn Config and GuardDuty off the same day if they're burning credits.
+- [ ] Day 102 — Least privilege: use each role's **Last accessed** tab in IAM to find and remove unused permissions from your deploy and task roles. (IAM Access Analyzer isn't part of the new AWS experience — read how it automates this.)
 - [ ] Day 103 — Encryption: KMS keys, S3 default encryption, RDS encryption, secrets rotation.
 - [ ] Day 104 — Shift-left: add container image scanning and IaC scanning gates to the pipeline.
-- [ ] Day 105 — Multi-account basics: AWS Organizations, separate dev / prod accounts, SCPs (read; build if credits allow). In the new experience, a second **project** is a separate account, so dev / prod projects are a free way to practice the idea.
-
-> **Decision point — activate advanced features?** The new experience limits Regions and leaves out IAM Access Analyzer, full Organizations / SCP control and IAM Identity Center. settings.aws.com → Projects → *Explore advanced features* unlocks them at no extra cost, but it is **irreversible** and **removes the spend limit** (Budgets become your only guard). Decide here, not earlier; skipping Day 102 / full Organizations is an acceptable trade for keeping the hard spend cap.
+- [ ] Day 105 — Multi-account basics: read about AWS Organizations, OUs and SCPs, but **don't create an Organization** (it upgrades the account to Paid, irreversibly). Practice the idea with a second **project** (`dev` vs. `prod`): each project is its own AWS account with isolated resources.
 
 ### Week 22 — Reliability and operations
 
@@ -257,8 +263,8 @@ Keep going with the remaining Cloud Quest assignments on weekends; finishing all
 
 ### Week 23 — Cost and review
 
-- [ ] Day 111 — Cost allocation tags, Cost Explorer by tag, AWS Budgets per environment.
-- [ ] Day 112 — Right-sizing: Compute Optimizer, Fargate Spot, Graviton (ARM) images, Savings Plans concepts.
+- [ ] Day 111 — Cost allocation tags, Cost Explorer by tag, a Budget per environment / project. How many credits has the whole plan used so far?
+- [ ] Day 112 — Right-sizing: Compute Optimizer, Fargate Spot, Graviton (ARM) images. Savings Plans and Reserved Instances aren't available on the Free plan — learn the concepts only (they're on the exams).
 - [ ] Day 113 — Scheduled scale-to-zero for dev outside working hours.
 - [ ] Day 114 — Run the Well-Architected Tool review on your workload; list the top 5 risks.
 - [ ] Day 115 — Checkpoint: fix the top 2 risks from the review.
@@ -272,10 +278,10 @@ The capstone proves you can manage a complex deployment end to end; the certific
 ### Week 24 — Capstone
 
 - [ ] Day 116 — Write `ARCHITECTURE.md`: diagram, every service used, and the reason for each choice.
-- [ ] Day 117 — Clean-room test: from an empty account, one pipeline run creates dev and prod.
+- [ ] Day 117 — Clean-room test: from an empty project, one pipeline run creates dev and prod.
 - [ ] Day 118 — Release a feature with blue/green; trigger and verify an automatic rollback.
 - [ ] Day 119 — Write the README as a portfolio piece: what it does, how to run it, what you'd improve.
-- [ ] Day 120 — Destroy everything with one command. Decide: upgrade the free plan to paid (add a payment method, keep a spend limit), or let it close.
+- [ ] Day 120 — Destroy everything with one command. Decide before the Free plan ends (≈ May 3, 2027): let it close (90 days to recover), or upgrade to Paid and immediately set a project spend limit.
 
 ### Certification path
 
